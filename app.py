@@ -533,4 +533,9 @@ def ranking():
         return render_template('ranking.html', resultados=[])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Usa variables de entorno para la configuración
+    port = int(os.environ.get('PORT', 5000))
+    # Desactiva el modo debug en producción
+    debug = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    # Bindea a 0.0.0.0 para permitir conexiones externas
+    app.run(host='0.0.0.0', port=port, debug=debug)
