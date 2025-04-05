@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Juego de Memoria - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-calm-purple text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0"><i class="bi bi-grid-3x3 me-2"></i> Juego de Memoria</h2>
+        <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+            <i class="bi bi-house-door me-1"></i> Menú
+        </a>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle me-2"></i> Desafía tu memoria mientras aprendes conceptos importantes sobre lactancia materna. Encuentra las parejas de tarjetas que contienen términos relacionados.
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-calm-purple">
+                    <div class="card-header bg-calm-purple text-white">
+                        <h3 class="h5 mb-0">Instrucciones</h3>
+                    </div>
+                    <div class="card-body">
+                        <ol>
+                            <li class="mb-2">El juego consiste en encontrar las parejas de tarjetas relacionadas.</li>
+                            <li class="mb-2">Haz clic en una tarjeta para voltearla y ver su contenido.</li>
+                            <li class="mb-2">Luego, haz clic en otra tarjeta intentando encontrar su pareja.</li>
+                            <li class="mb-2">Si las tarjetas coinciden, permanecerán visibles.</li>
+                            <li class="mb-2">Si no coinciden, se volverán a ocultar.</li>
+                            <li>El objetivo es encontrar todas las parejas con el menor número de intentos.</li>
+                        </ol>
+                        <div class="alert alert-light mt-3">
+                            <i class="bi bi-lightbulb me-2"></i> <strong>Consejo:</strong> Intenta recordar la ubicación de las tarjetas que ya has visto para encontrar las parejas más rápidamente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card border-calm-purple h-100">
+                    <div class="card-header bg-calm-purple text-white">
+                        <h3 class="h5 mb-0">¡A jugar!</h3>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <p class="mb-4">
+                            <i class="bi bi-grid-3x3" style="font-size: 3rem; color: #0dcaf0;"></i>
+                        </p>
+                        <p class="flex-grow-1">¡Pon a prueba tu memoria y aprende sobre lactancia materna! Encuentra todas las parejas y conviértete en un experto.</p>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('memoria_jugar') }}" class="btn btn-calm-purple btn-lg">
+                                <i class="bi bi-play-circle me-2"></i> Iniciar juego
+                            </a>
+                            <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#dificultadModal">
+                                <i class="bi bi-sliders me-2"></i> Seleccionar dificultad
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-calm-purple mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="h5 mb-0">Beneficios educativos</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Aprendizaje activo:</strong> Memorizar conceptos mientras juegas mejora la retención.</li>
+                            <li><strong>Terminología:</strong> Familiarízate con términos comunes relacionados con la lactancia.</li>
+                            <li><strong>Asociación de ideas:</strong> Conecta conceptos con sus definiciones o funciones.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Ejercicio mental:</strong> Mejora la concentración y la memoria a corto plazo.</li>
+                            <li><strong>Aprendizaje visual:</strong> Refuerza el conocimiento a través de la repetición visual.</li>
+                            <li><strong>Diversión educativa:</strong> Aprende mientras te diviertes con un juego clásico.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ url_for('memoria_jugar') }}" class="btn btn-lg btn-calm-purple">
+                <i class="bi bi-play-circle me-2"></i> Comenzar a jugar
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de dificultad -->
+<div class="modal fade" id="dificultadModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-calm-purple text-white">
+                <h5 class="modal-title">Selecciona la dificultad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    <a href="{{ url_for('memoria_jugar') }}?nivel=facil" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">Principiante</h6>
+                            <p class="mb-1 small text-muted">8 tarjetas (4 parejas)</p>
+                        </div>
+                        <span class="badge bg-success rounded-pill">Fácil</span>
+                    </a>
+                    <a href="{{ url_for('memoria_jugar') }}?nivel=medio" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">Intermedio</h6>
+                            <p class="mb-1 small text-muted">16 tarjetas (8 parejas)</p>
+                        </div>
+                        <span class="badge bg-warning rounded-pill">Medio</span>
+                    </a>
+                    <a href="{{ url_for('memoria_jugar') }}?nivel=dificil" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">Experto</h6>
+                            <p class="mb-1 small text-muted">24 tarjetas (12 parejas)</p>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">Difícil</span>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+ 
+    /* Colores temáticos de lactancia */
+    .bg-baby-blue {
+        background-color: #5ba0d5;
+    }
+    
+    .bg-mother-pink {
+        background-color: #e091b9;
+    }
+    
+    .bg-nurture-green {
+        background-color: #78c2ad;
+    }
+    
+    .bg-calm-purple {
+        background-color: #a991d4;
+    }
+    
+    .bg-warm-orange {
+        background-color: #f3a052;
+    }
+    
+    .border-baby-blue {
+        border-color: #5ba0d5 !important;
+    }
+    
+    .border-mother-pink {
+        border-color: #e091b9 !important;
+    }
+    
+    .border-nurture-green {
+        border-color: #78c2ad !important;
+    }
+    
+    .border-calm-purple {
+        border-color: #a991d4 !important;
+    }
+    
+    .border-warm-orange {
+        border-color: #f3a052 !important;
+    }
+    
+    .btn-baby-blue {
+        background-color: #5ba0d5;
+        border-color: #5ba0d5;
+        color: white;
+    }
+    
+    .btn-mother-pink {
+        background-color: #e091b9;
+        border-color: #e091b9;
+        color: white;
+    }
+    
+    .btn-nurture-green {
+        background-color: #78c2ad;
+        border-color: #78c2ad;
+        color: white;
+    }
+    
+    .btn-calm-purple {
+        background-color: #a991d4;
+        border-color: #a991d4;
+        color: white;
+    }
+    
+    .btn-warm-orange {
+        background-color: #f3a052;
+        border-color: #f3a052;
+        color: white;
+    }
+    
+    .btn-baby-blue:hover, .btn-mother-pink:hover, .btn-nurture-green:hover, 
+    .btn-calm-purple:hover, .btn-warm-orange:hover {
+        filter: brightness(90%);
+        color: white;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}Menú Principal - LactaQuiz{% endblock %}
+
+{% block extra_css %}
+<style>
+    .menu-card {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .menu-card .card-header {
+        padding: 15px;
+        border-bottom: none;
+    }
+    
+    .menu-card .card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .menu-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        display: block;
+        text-align: center;
+    }
+    
+    .btn-menu {
+        border-radius: 30px;
+        padding: 10px 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.9rem;
+    }
+    
+    .welcome-banner {
+        background: linear-gradient(135deg, #5b9bd5 0%, #3a6fa0 100%);
+        border-radius: 10px;
+        padding: 25px;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+    
+    /* Colores temáticos de lactancia */
+    .bg-baby-blue {
+        background-color: #5ba0d5;
+    }
+    
+    .bg-mother-pink {
+        background-color: #e091b9;
+    }
+    
+    .bg-nurture-green {
+        background-color: #78c2ad;
+    }
+    
+    .bg-calm-purple {
+        background-color: #a991d4;
+    }
+    
+    .bg-warm-orange {
+        background-color: #f3a052;
+    }
+    
+    .border-baby-blue {
+        border-color: #5ba0d5 !important;
+    }
+    
+    .border-mother-pink {
+        border-color: #e091b9 !important;
+    }
+    
+    .border-nurture-green {
+        border-color: #78c2ad !important;
+    }
+    
+    .border-calm-purple {
+        border-color: #a991d4 !important;
+    }
+    
+    .border-warm-orange {
+        border-color: #f3a052 !important;
+    }
+    
+    .btn-baby-blue {
+        background-color: #5ba0d5;
+        border-color: #5ba0d5;
+        color: white;
+    }
+    
+    .btn-mother-pink {
+        background-color: #e091b9;
+        border-color: #e091b9;
+        color: white;
+    }
+    
+    .btn-nurture-green {
+        background-color: #78c2ad;
+        border-color: #78c2ad;
+        color: white;
+    }
+    
+    .btn-calm-purple {
+        background-color: #a991d4;
+        border-color: #a991d4;
+        color: white;
+    }
+    
+    .btn-warm-orange {
+        background-color: #f3a052;
+        border-color: #f3a052;
+        color: white;
+    }
+    
+    .btn-baby-blue:hover, .btn-mother-pink:hover, .btn-nurture-green:hover, 
+    .btn-calm-purple:hover, .btn-warm-orange:hover {
+        filter: brightness(90%);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="welcome-banner">
+    <div class="row align-items-center">
+        <div class="col-md-9">
+            <h1 class="h3 mb-2">¡Bienvenido/a a LactaQuiz!</h1>
+            <p class="mb-0 lead">Explora los diferentes juegos y actividades para aprender sobre la lactancia materna de forma divertida</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Quiz -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card menu-card border-baby-blue">
+            <div class="card-header bg-baby-blue text-white">
+                <h3 class="h5 mb-0 text-center">Quiz</h3>
+            </div>
+            <div class="card-body">
+                <i class="bi bi-question-circle menu-icon text-baby-blue"></i>
+                <p class="card-text text-center flex-grow-1">Pon a prueba tus conocimientos sobre lactancia materna con nuestro quiz educativo.</p>
+                <a href="{{ url_for('quiz_instrucciones') }}" class="btn btn-baby-blue btn-menu w-100 mt-auto">
+                    <i class="bi bi-play-fill me-1"></i> Jugar Quiz
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mitos y Realidades -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card menu-card border-mother-pink">
+            <div class="card-header bg-mother-pink text-white">
+                <h3 class="h5 mb-0 text-center">Mitos y Realidades</h3>
+            </div>
+            <div class="card-body">
+                <i class="bi bi-lightbulb menu-icon text-mother-pink"></i>
+                <p class="card-text text-center flex-grow-1">Descubre los mitos más comunes sobre la lactancia y aprende la realidad basada en evidencia.</p>
+                <a href="{{ url_for('mitos_inicio') }}" class="btn btn-mother-pink btn-menu w-100 mt-auto">
+                    <i class="bi bi-search me-1"></i> Explorar Mitos
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Posiciones de Lactancia -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card menu-card border-nurture-green">
+            <div class="card-header bg-nurture-green text-white">
+                <h3 class="h5 mb-0 text-center">Posiciones de Lactancia</h3>
+            </div>
+            <div class="card-body">
+                <i class="bi bi-person-check menu-icon text-nurture-green"></i>
+                <p class="card-text text-center flex-grow-1">Aprende las diferentes posiciones para amamantar y practica a través de juegos interactivos.</p>
+                <a href="{{ url_for('posiciones_inicio') }}" class="btn btn-nurture-green btn-menu w-100 mt-auto">
+                    <i class="bi bi-journal-text me-1"></i> Aprender Posiciones
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Juego de Memoria -->
+    <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card menu-card border-calm-purple">
+            <div class="card-header bg-calm-purple text-white">
+                <h3 class="h5 mb-0 text-center">Juego de Memoria</h3>
+            </div>
+            <div class="card-body">
+                <i class="bi bi-grid-3x3 menu-icon text-calm-purple"></i>
+                <p class="card-text text-center flex-grow-1">Diviértete emparejando conceptos sobre lactancia materna en este juego de memoria. Mejora tus conocimientos mientras juegas.</p>
+                <a href="{{ url_for('memoria_inicio') }}" class="btn btn-calm-purple btn-menu w-100 mt-auto">
+                    <i class="bi bi-controller me-1"></i> Jugar Memoria
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recursos -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card menu-card border-warm-orange">
+            <div class="card-header bg-warm-orange text-white">
+                <h3 class="h5 mb-0 text-center">Recursos</h3>
+            </div>
+            <div class="card-body">
+                <i class="bi bi-book menu-icon text-warm-orange"></i>
+                <p class="card-text text-center flex-grow-1">Consulta información práctica, enlaces útiles y recursos para apoyar la lactancia materna. Encuentra apoyo y consejos para cada etapa de tu experiencia.</p>
+                <a href="{{ url_for('recursos') }}" class="btn btn-warm-orange btn-menu w-100 mt-auto">
+                    <i class="bi bi-file-earmark-text me-1"></i> Ver Recursos
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer con información adicional -->
+<div class="card bg-light mt-2 mb-4">
+    <div class="card-body text-center">
+        <p class="mb-0 small">
+            <i class="bi bi-info-circle me-1"></i> 
+            LactaQuiz está diseñado para proporcionar información educativa sobre lactancia materna.
+            <br>Para consultas médicas específicas, siempre consulta con un profesional de la salud.
+        </p>
+    </div>
+</div>
+{% endblock %}

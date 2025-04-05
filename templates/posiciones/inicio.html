@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Posiciones de Lactancia - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-nurture-green text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0"><i class="bi bi-pencil-square me-2"></i> Posiciones de Lactancia</h2>
+        <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+            <i class="bi bi-house-door me-1"></i> Menú
+        </a>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-success mb-4">
+            <i class="bi bi-info-circle me-2"></i> Conocer diferentes posiciones de lactancia te ayudará a encontrar la más cómoda para ti y tu bebé, así como a resolver problemas específicos que puedan surgir.
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-6 mb-4">
+                <div class="card border-success h-100">
+                    <div class="card-header bg-nurture-green text-white">
+                        <h3 class="h5 mb-0">Guía de posiciones</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Explora las diferentes posiciones para amamantar a tu bebé:</p>
+                        
+                        <div class="list-group mb-3">
+                            {% for posicion in posiciones %}
+                            <a href="{{ url_for('posiciones_detalle', posicion_id=posicion.id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <span>{{ posicion.nombre }}</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                            {% endfor %}
+                        </div>
+                        
+                        <a href="{{ url_for('posiciones_completa') }}" class="btn btn-success w-100">
+                            <i class="bi bi-journal-text me-2"></i> Ver guía completa
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card border-success h-100">
+                    <div class="card-header bg-nurture-green text-white">
+                        <h3 class="h5 mb-0">Juego interactivo</h3>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <p class="mb-4">
+                            <i class="bi bi-controller" style="font-size: 3rem; color: #198754;"></i>
+                        </p>
+                        <p class="flex-grow-1">Pon a prueba tus conocimientos sobre las posiciones de lactancia con este juego interactivo. ¡Aprende mientras te diviertes!</p>
+                        <a href="{{ url_for('posiciones_juego') }}" class="btn btn-success">
+                            <i class="bi bi-play-circle me-2"></i> Iniciar juego
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-info mb-4">
+            <div class="card-header bg-info text-white">
+                <h3 class="h5 mb-0">¿Por qué es importante conocer diferentes posiciones?</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Mayor comodidad:</strong> Diferentes posiciones permiten adaptarse a tus necesidades y las de tu bebé.</li>
+                            <li><strong>Prevención de problemas:</strong> Cambiar de posición ayuda a prevenir dolor en pezones y espalda.</li>
+                            <li><strong>Adaptación a circunstancias:</strong> Algunas posiciones son ideales tras una cesárea, para bebés prematuros o con dificultades de succión.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Drenaje completo:</strong> Diferentes posiciones ayudan a vaciar distintas áreas del pecho.</li>
+                            <li><strong>Resolución de problemas:</strong> Ciertas posiciones pueden ayudar con cólicos, reflujo o conductos obstruidos.</li>
+                            <li><strong>Flexibilidad:</strong> Conocer varias opciones te permite amamantar en diferentes situaciones y lugares.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ url_for('posiciones_juego') }}" class="btn btn-lg btn-success">
+                <i class="bi bi-play-circle me-2"></i> Iniciar juego de posiciones
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+ 
+    /* Colores temáticos de lactancia */
+    .bg-baby-blue {
+        background-color: #5ba0d5;
+    }
+    
+    .bg-mother-pink {
+        background-color: #e091b9;
+    }
+    
+    .bg-nurture-green {
+        background-color: #78c2ad;
+    }
+    
+    .bg-calm-purple {
+        background-color: #a991d4;
+    }
+    
+    .bg-warm-orange {
+        background-color: #f3a052;
+    }
+    
+    .border-baby-blue {
+        border-color: #5ba0d5 !important;
+    }
+    
+    .border-mother-pink {
+        border-color: #e091b9 !important;
+    }
+    
+    .border-nurture-green {
+        border-color: #78c2ad !important;
+    }
+    
+    .border-calm-purple {
+        border-color: #a991d4 !important;
+    }
+    
+    .border-warm-orange {
+        border-color: #f3a052 !important;
+    }
+    
+    .btn-baby-blue {
+        background-color: #5ba0d5;
+        border-color: #5ba0d5;
+        color: white;
+    }
+    
+    .btn-mother-pink {
+        background-color: #e091b9;
+        border-color: #e091b9;
+        color: white;
+    }
+    
+    .btn-nurture-green {
+        background-color: #78c2ad;
+        border-color: #78c2ad;
+        color: white;
+    }
+    
+    .btn-calm-purple {
+        background-color: #a991d4;
+        border-color: #a991d4;
+        color: white;
+    }
+    
+    .btn-warm-orange {
+        background-color: #f3a052;
+        border-color: #f3a052;
+        color: white;
+    }
+    
+    .btn-baby-blue:hover, .btn-mother-pink:hover, .btn-nurture-green:hover, 
+    .btn-calm-purple:hover, .btn-warm-orange:hover {
+        filter: brightness(90%);
+        color: white;
+    }
+</style>
+{% endblock %}

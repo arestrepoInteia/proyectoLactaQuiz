@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Instrucciones - Quiz de Lactancia Materna{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title h4 mb-0">
+                    <i class="bi bi-info-circle me-2"></i> Instrucciones del juego
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-info mb-4">
+                    <h3 class="h5">Hola, {{ session.nombre }}!</h3>
+                    <p class="mb-0">Antes de comenzar, lee estas instrucciones para entender cómo jugar.</p>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="card h-100 border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h3 class="h5 mb-0">¿Cómo se juega?</h3>
+                            </div>
+                            <div class="card-body">
+                                <ol class="mb-0">
+                                    <li>Se te presentarán 10 preguntas sobre lactancia materna.</li>
+                                    <li>Cada pregunta tiene 4 posibles respuestas.</li>
+                                    <li>Selecciona la que consideres correcta.</li>
+                                    <li>No hay límite de tiempo, pero no puedes volver atrás.</li>
+                                    <li>Al final podrás ver tu puntuación y ranking.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h3 class="h5 mb-0">¿Por qué es importante?</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    <li>Desmitificarás creencias erróneas sobre la lactancia</li>
+                                    <li>Aprenderás información basada en evidencia científica</li>
+                                    <li>Conocerás datos que pueden ayudarte a ti o a otras madres</li>
+                                    <li>La información correcta es clave para una lactancia exitosa</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card border-info">
+                            <div class="card-header bg-info text-white">
+                                <h3 class="h5 mb-0">Niveles de desempeño</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-group mb-3 mb-md-0">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Experto en Lactancia
+                                                <span class="badge bg-primary rounded-pill">90-100 puntos</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Conocimiento Avanzado
+                                                <span class="badge bg-success rounded-pill">70-89 puntos</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Conocimiento Intermedio
+                                                <span class="badge bg-warning text-dark rounded-pill">50-69 puntos</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Principiante
+                                                <span class="badge bg-danger rounded-pill">0-49 puntos</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="{{ url_for('jugar') }}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-controller me-2"></i> ¡Comenzar el juego!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

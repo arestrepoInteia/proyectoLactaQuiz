@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}Mito vs Realidad - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0">Mito vs Realidad</h2>
+        <div>
+            <a href="{{ url_for('mitos_inicio') }}" class="btn btn-sm btn-light me-2">
+                <i class="bi bi-arrow-left me-1"></i> Volver
+            </a>
+            <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+                <i class="bi bi-house-door me-1"></i> Menú
+            </a>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-info mb-4">
+            <i class="bi bi-tag me-2"></i> Categoría: <strong>{{ categoria }}</strong>
+        </div>
+        
+        {% if mito %}
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="card mb-4 flip-card-single" id="mitoCard">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-header bg-danger text-white py-3">
+                                <h3 class="h5 mb-0 text-center">
+                                    <i class="bi bi-x-circle me-2"></i> MITO
+                                </h3>
+                            </div>
+                            <div class="card-body text-center py-5">
+                                <p class="display-6 mb-4">
+                                    <i class="bi bi-quote" style="font-size: 1.5rem; opacity: 0.5;"></i>
+                                </p>
+                                <p class="fs-4 mb-5">{{ mito.mito }}</p>
+                                <button id="flipButton" class="btn btn-lg btn-outline-danger">
+                                    <i class="bi bi-arrow-repeat me-2"></i> Revelar la realidad
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-header bg-success text-white py-3">
+                                <h3 class="h5 mb-0 text-center">
+                                    <i class="bi bi-check-circle me-2"></i> REALIDAD
+                                </h3>
+                            </div>
+                            <div class="card-body py-5">
+                                <div class="row">
+                                    <div class="col-md-10 offset-md-1">
+                                        <p class="fs-5 mb-4">{{ mito.realidad }}</p>
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <button id="backButton" class="btn btn-outline-success me-2">
+                                                <i class="bi bi-arrow-repeat me-2"></i> Volver al mito
+                                            </button>
+                                            <a href="{{ url_for('mitos_categoria', categoria=categoria) }}" class="btn btn-success">
+                                                <i class="bi bi-shuffle me-2"></i> Otro mito
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-muted mb-3">¿Sabías este dato? Compartir información correcta ayuda a otras madres.</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="btnShare">
+                            <i class="bi bi-share me-2"></i> Compartir este mito
+                        </button>
+                        <a href="{{ url_for('mitos_categoria', categoria=categoria) }}" class="btn btn-primary">
+                            <i class="bi bi-shuffle me-2"></i> Ver otro mito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i> No se encontraron mitos para esta categoría.
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('mitos_inicio') }}" class="btn btn-primary">
+                <i class="bi bi-arrow-left me-2"></i> Volver al inicio
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Estilos para la tarjeta flip */
+    .flip-card-single {
+        perspective: 1000px;
+        min-height: 350px;
+    }
+    
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+    
+    .flip-card-single.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .flip-card-back {
+        transform: rotateY(180deg);
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mitoCard = document.getElementById('mitoCard');
+        const flipButton = document.getElementById('flipButton');
+        const backButton = document.getElementById('backButton');
+        const btnShare = document.getElementById('btnShare');
+        
+        // Activar la tarjeta flip
+        if (flipButton) {
+            flipButton.addEventListener('click', function() {
+                mitoCard.classList.add('flipped');
+            });
+        }
+        
+        if (backButton) {
+            backButton.addEventListener('click', function() {
+                mitoCard.classList.remove('flipped');
+            });
+        }
+        
+        // Compartir
+        if (btnShare) {
+            btnShare.addEventListener('click', function() {
+                const mitoTexto = "{{ mito.mito if mito else '' }}";
+                const realidadTexto = "{{ mito.realidad if mito else '' }}";
+                const texto = `Mito sobre lactancia: "${mitoTexto}" - Realidad: "${realidadTexto}" #LactaQuiz`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Mito sobre lactancia materna',
+                        text: texto
+                    })
+                    .catch((error) => console.log('Error compartiendo:', error));
+                } else {
+                    // Fallback: copiar al portapapeles
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = texto;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    
+                    alert('Información copiada al portapapeles. ¡Puedes compartirla donde quieras!');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}Recursos - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0"><i class="bi bi-journal-text me-2"></i> Recursos sobre Lactancia Materna</h2>
+        <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+            <i class="bi bi-house-door me-1"></i> Menú
+        </a>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-secondary mb-4">
+            <i class="bi bi-info-circle me-2"></i> Aquí encontrarás información práctica, consejos útiles y recursos para apoyar tu experiencia de lactancia materna.
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h5 mb-0"><i class="bi bi-check2-square me-2"></i> Consejos prácticos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="consejosAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno">
+                                        Preparación para la lactancia
+                                    </button>
+                                </h2>
+                                <div id="collapseUno" class="accordion-collapse collapse" data-bs-parent="#consejosAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="mb-0">
+                                            <li>Asiste a clases prenatales sobre lactancia</li>
+                                            <li>Aprende sobre diferentes posiciones de lactancia</li>
+                                            <li>Prepara un rincón cómodo para amamantar</li>
+                                            <li>Consigue almohadas de lactancia o cojines para mayor comodidad</li>
+                                            <li>Localiza grupos de apoyo a la lactancia en tu zona</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos">
+                                        Primeros días
+                                    </button>
+                                </h2>
+                                <div id="collapseDos" class="accordion-collapse collapse" data-bs-parent="#consejosAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="mb-0">
+                                            <li>Inicia la lactancia lo antes posible tras el parto</li>
+                                            <li>Busca contacto piel con piel frecuente</li>
+                                            <li>Alimenta a demanda (cuando el bebé muestre señales, no por horario)</li>
+                                            <li>Asegura un buen agarre del pecho</li>
+                                            <li>No utilices biberones ni chupetes hasta que la lactancia esté bien establecida</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTres">
+                                        Cuidado de los pechos
+                                    </button>
+                                </h2>
+                                <div id="collapseTres" class="accordion-collapse collapse" data-bs-parent="#consejosAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="mb-0">
+                                            <li>Mantén una higiene normal, no es necesaria limpieza especial</li>
+                                            <li>Deja secar al aire unas gotas de leche sobre el pezón al finalizar</li>
+                                            <li>Cambia las posiciones de lactancia para prevenir la irritación</li>
+                                            <li>Usa sujetadores cómodos sin aros que no compriman</li>
+                                            <li>Para pezones agrietados, aplica un poco de tu propia leche</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCuatro">
+                                        Manteniendo la producción
+                                    </button>
+                                </h2>
+                                <div id="collapseCuatro" class="accordion-collapse collapse" data-bs-parent="#consejosAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="mb-0">
+                                            <li>Vacía bien los pechos en cada toma</li>
+                                            <li>Amamanta frecuentemente, al menos 8-12 veces en 24 horas</li>
+                                            <li>Bebe suficiente agua (aproximadamente 2 litros al día)</li>
+                                            <li>Mantén una alimentación equilibrada</li>
+                                            <li>Descansa cuando el bebé descansa</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-danger">
+                    <div class="card-header bg-danger text-white">
+                        <h3 class="h5 mb-0"><i class="bi bi-exclamation-triangle me-2"></i> Señales de alerta</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-light mb-3">
+                            <h4 class="h6 mb-2 text-danger">Consulta con un profesional si:</h4>
+                            <ul class="mb-0">
+                                <li>Sientes dolor intenso durante la lactancia</li>
+                                <li>Tienes grietas profundas o sangrantes en los pezones</li>
+                                <li>Presentas enrojecimiento, calor o bultos dolorosos en el pecho</li>
+                                <li>Tienes fiebre sin otra causa aparente</li>
+                                <li>Tu bebé no muestra interés en alimentarse</li>
+                                <li>Tu bebé hace menos de 6 pañales mojados al día</li>
+                                <li>Tu bebé no recupera el peso de nacimiento en dos semanas</li>
+                                <li>Tu bebé muestra signos de deshidratación</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="alert alert-light mb-0">
+                            <h4 class="h6 mb-2 text-danger">¿Cuando buscar ayuda?</h4>
+                            <p class="mb-1">Si experimentas dificultades con la lactancia, busca ayuda lo antes posible. Consulta con:</p>
+                            <ul class="mb-0">
+                                <li>Consultoras certificadas en lactancia (IBCLC)</li>
+                                <li>Grupos de apoyo a la lactancia materna</li>
+                                <li>Pediatra o médico familiar</li>
+                                <li>Matrona o enfermera especializada</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="h5 mb-0"><i class="bi bi-card-list me-2"></i> Preguntas frecuentes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqUno">
+                                        ¿Cómo sé si mi bebé está recibiendo suficiente leche?
+                                    </button>
+                                </h2>
+                                <div id="faqUno" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="mb-0">Los principales indicadores son: 6-8 pañales mojados al día, 2-5 deposiciones (durante el primer mes), ganancia adecuada de peso (verificar con pediatra), el bebé se muestra satisfecho después de mamar, y puedes oír cómo traga mientras mama.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqDos">
+                                        ¿Por qué mi bebé quiere mamar constantemente?
+                                    </button>
+                                </h2>
+                                <div id="faqDos" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="mb-0">Puede ser por brotes de crecimiento (comunes a las 2-3 semanas, 6 semanas, 3 meses), por buscar consuelo o contacto, por calor o sed, o simplemente porque la leche materna se digiere rápidamente. La lactancia a demanda es normal y ayuda a establecer la producción.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTres">
+                                        ¿Puedo tomar medicamentos durante la lactancia?
+                                    </button>
+                                </h2>
+                                <div id="faqTres" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="mb-0">La mayoría de los medicamentos son compatibles con la lactancia. Siempre consulta con tu médico. Existen bases de datos como e-lactancia.org donde puedes verificar la compatibilidad de fármacos específicos. Generalmente hay alternativas seguras para casi todas las condiciones médicas.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCuatro">
+                                        ¿Cómo combinar lactancia y trabajo?
+                                    </button>
+                                </h2>
+                                <div id="faqCuatro" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p>Es posible continuar la lactancia cuando regresas al trabajo:</p>
+                                        <ul class="mb-0">
+                                            <li>Extrae y almacena leche para cuando no estés</li>
+                                            <li>Practica la extracción semanas antes de volver</li>
+                                            <li>Mantén tomas directas cuando estés con tu bebé</li>
+                                            <li>Conoce tus derechos laborales respecto a la lactancia</li>
+                                            <li>Considera un extractor eléctrico doble para ahorrar tiempo</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-info mb-4">
+            <div class="card-header bg-info text-white">
+                <h3 class="h5 mb-0"><i class="bi bi-link-45deg me-2"></i> Enlaces útiles</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>OMS:</strong> <a href="https://www.who.int/es/health-topics/breastfeeding" target="_blank">Lactancia materna</a> - Información oficial de la Organización Mundial de la Salud</li>
+                            <li><strong>UNICEF:</strong> <a href="https://www.unicef.org/es/nutrition/breastfeeding" target="_blank">Promoción de la lactancia materna</a> - Recursos y campañas de apoyo</li>
+                            <li><strong>La Liga de la Leche:</strong> <a href="https://www.llli.org/es/" target="_blank">Apoyo madre a madre</a> - Organización internacional de apoyo</li>
+                            <li><strong>e-lactancia:</strong> <a href="http://www.e-lactancia.org/" target="_blank">Compatibilidad de medicamentos</a> - Base de datos sobre medicamentos y lactancia</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>APILAM:</strong> <a href="https://www.apilam.org/" target="_blank">Asociación para la Promoción e Investigación científica y cultural de la Lactancia Materna</a></li>
+                            <li><strong>Academia de Medicina de Lactancia Materna:</strong> <a href="https://www.bfmed.org/" target="_blank">Recursos para profesionales</a></li>
+                            <li><strong>AEP:</strong> <a href="https://www.aeped.es/comite-lactancia-materna" target="_blank">Comité de Lactancia Materna</a> - Asociación Española de Pediatría</li>
+                            <li><strong>LactApp:</strong> <a href="https://lactapp.es/" target="_blank">Aplicación de consulta sobre lactancia</a> - App con respuestas personalizadas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
+                <h3 class="h5 mb-0"><i class="bi bi-book me-2"></i> Biblioteca de recursos</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header bg-light">
+                                <h4 class="h6 mb-0">Libros recomendados</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    <li><strong>Un regalo para toda la vida:</strong> Carlos González</li>
+                                    <li><strong>El arte femenino de amamantar:</strong> La Liga de la Leche</li>
+                                    <li><strong>Lactancia materna:</strong> Lawrence & Lawrence</li>
+                                    <li><strong>El poder de las caricias:</strong> Ashley Montagu</li>
+                                    <li><strong>La revolución de las madres:</strong> Laura Gutman</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header bg-light">
+                                <h4 class="h6 mb-0">Documentales y videos</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    <li><strong>El periodo sensible tras el nacimiento:</strong> Dr. Michel Odent</li>
+                                    <li><strong>Necesidades instintivas de los bebés:</strong> Dr. Nils Bergman</li>
+                                    <li><strong>Posturas y agarre al pecho:</strong> Dr. Jack Newman</li>
+                                    <li><strong>Lactancia y crianza:</strong> Dra. Ibone Olza</li>
+                                    <li><strong>La fisiología de la lactancia:</strong> Dra. Suzanne Colson</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

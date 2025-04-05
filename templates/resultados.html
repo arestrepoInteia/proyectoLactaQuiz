@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados - Quiz de Nutrición{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white py-2">
+        <h2 class="card-title h5 mb-0">
+            <i class="bi bi-award me-2"></i> Resultados Finales
+        </h2>
+    </div>
+    
+    <div class="card-body p-3">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body p-3 text-center">
+                                <h3 class="card-title h6 mb-2">Tu Puntaje Final</h3>
+                                
+                                <div class="display-4 fw-bold mb-2 {% if porcentaje >= 70 %}text-success{% elif porcentaje >= 50 %}text-warning{% else %}text-danger{% endif %}">
+                                    {{ puntaje }}
+                                </div>
+                                
+                                <div class="text-muted mb-2">de {{ total }} puntos posibles</div>
+                                
+                                <div class="progress mb-2" style="height: 10px;">
+                                    <div class="progress-bar bg-{% if porcentaje >= 70 %}success{% elif porcentaje >= 50 %}warning{% else %}danger{% endif %}" 
+                                         role="progressbar" 
+                                         style="width: {{ porcentaje }}%"
+                                         aria-valuenow="{{ porcentaje }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <span class="badge bg-{% if porcentaje >= 90 %}primary{% elif porcentaje >= 70 %}success{% elif porcentaje >= 50 %}warning{% else %}danger{% endif %} p-2">
+                                    {{ porcentaje|round }}% - Nivel: {{ nivel }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    {% if porcentaje >= 90 %}
+                                    <i class="bi bi-trophy text-primary me-2" style="font-size: 2rem;"></i>
+                                    {% elif porcentaje >= 70 %}
+                                    <i class="bi bi-award text-success me-2" style="font-size: 2rem;"></i>
+                                    {% elif porcentaje >= 50 %}
+                                    <i class="bi bi-hand-thumbs-up text-warning me-2" style="font-size: 2rem;"></i>
+                                    {% else %}
+                                    <i class="bi bi-book text-danger me-2" style="font-size: 2rem;"></i>
+                                    {% endif %}
+                                    <h3 class="card-title h6 mb-0">Evaluación</h3>
+                                </div>
+                                
+                                <div class="alert alert-{% if porcentaje >= 70 %}success{% elif porcentaje >= 50 %}warning{% else %}danger{% endif %} py-2 px-3 mb-2">
+                                    <strong>{{ nombre }}</strong>, {{ mensaje }}
+                                </div>
+                                
+                                <canvas id="graficoResultado" height="120"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-5">
+                <div class="card mb-3">
+                    <div class="card-header bg-light py-2">
+                        <h3 class="h6 mb-0">Desglose de resultados</h3>
+                    </div>
+                    <div class="card-body p-3">
+                        <table class="table table-sm">
+                            <tr>
+                                <td>Preguntas respondidas:</td>
+                                <td class="text-end fw-bold">{{ total // 10 }}</td>
+                            </tr>
+                            <tr>
+                                <td>Respuestas correctas:</td>
+                                <td class="text-end fw-bold text-success">{{ puntaje // 10 }}</td>
+                            </tr>
+                            <tr>
+                                <td>Respuestas incorrectas:</td>
+                                <td class="text-end fw-bold text-danger">{{ (total - puntaje) // 10 }}</td>
+                            </tr>
+                            <tr>
+                                <td>Porcentaje de acierto:</td>
+                                <td class="text-end fw-bold">{{ porcentaje|round }}%</td>
+                            </tr>
+                            <tr>
+                                <td>Nivel obtenido:</td>
+                                <td class="text-end fw-bold">{{ nivel }}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="d-grid gap-2 mt-3">
+                            <button type="button" class="btn btn-success btn-sm" onclick="compartirResultado()">
+                                <i class="bi bi-share me-1"></i> Compartir resultado
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between mt-2">
+            <a href="{{ url_for('inicio') }}" class="btn btn-outline-primary">
+                <i class="bi bi-house-door me-1"></i> Inicio
+            </a>
+            
+            <a href="{{ url_for('ranking') }}" class="btn btn-primary">
+                <i class="bi bi-trophy me-1"></i> Ver ranking
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gráfico circular para la visualización del resultado
+        const ctx = document.getElementById('graficoResultado').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Correctas', 'Incorrectas'],
+                datasets: [{
+                    data: [{{ puntaje / 10 }}, {{ (total - puntaje) / 10 }}],
+                    backgroundColor: [
+                        'rgba(40, 167, 69, 0.8)',
+                        'rgba(220, 53, 69, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(40, 167, 69, 1)',
+                        'rgba(220, 53, 69, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + ' preguntas';
+                            }
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    });
+    
+    // Función para compartir el resultado
+    function compartirResultado() {
+        const texto = "¡He obtenido {{ puntaje }} puntos ({{ porcentaje|round }}%) en el Quiz de Nutrición! Mi nivel es: {{ nivel }}";
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mi resultado en el Quiz de Nutrición',
+                text: texto
+            })
+            .catch((error) => console.log('Error compartiendo:', error));
+        } else {
+            // Fallback: copiar al portapapeles
+            const tempInput = document.createElement('textarea');
+            tempInput.value = texto;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            alert('Resultado copiado al portapapeles. ¡Puedes compartirlo donde quieras!');
+        }
+    }
+</script>
+{% endblock %}

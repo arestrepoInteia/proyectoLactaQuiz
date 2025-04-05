@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Guía Completa de Posiciones - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-nurture-green text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0">Guía Completa de Posiciones</h2>
+        <div>
+            <a href="{{ url_for('posiciones_inicio') }}" class="btn btn-sm btn-light me-2">
+                <i class="bi bi-arrow-left me-1"></i> Volver
+            </a>
+            <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+                <i class="bi bi-house-door me-1"></i> Menú
+            </a>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-success mb-4">
+            <i class="bi bi-info-circle me-2"></i> Esta guía muestra todas las posiciones para amamantar a tu bebé. Conocerlas te ayudará a encontrar la más cómoda para ti y resolver problemas específicos.
+        </div>
+        
+        {% for posicion in posiciones %}
+        <div class="card mb-4">
+            <div class="card-header bg-nurture-green text-white">
+                <h3 class="h5 mb-0">{{ posicion.nombre }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <img src="{{ url_for('static', filename='img/posiciones/' + posicion.imagen) }}" alt="{{ posicion.nombre }}" class="img-fluid rounded shadow">
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="h6 text-success mb-2">Descripción:</h4>
+                        <p>{{ posicion.descripcion }}</p>
+                        
+                        <h4 class="h6 text-success mb-2 mt-3">Beneficios:</h4>
+                        <p>{{ posicion.beneficios }}</p>
+                        
+                        <h4 class="h6 text-success mb-2 mt-3">Consejos prácticos:</h4>
+                        <p class="mb-0">{{ posicion.consejos }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <div class="card border-info mb-4">
+            <div class="card-header bg-info text-white">
+                <h3 class="h5 mb-0"><i class="bi bi-lightbulb me-2"></i> Recomendaciones generales</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Experimenta diferentes posiciones:</strong> Lo más importante es encontrar lo que funciona mejor para ti y tu bebé.</p>
+                <p><strong>Alterna posiciones:</strong> Cambiar entre diferentes posiciones puede ayudar a prevenir el dolor en los pezones y facilitar el vaciado completo del pecho.</p>
+                <p><strong>Usa almohadas o cojines:</strong> Apoyos adecuados pueden hacer la lactancia más cómoda y evitar tensión en brazos, hombros y espalda.</p>
+                <p class="mb-0"><strong>Consulta con profesionales:</strong> Si tienes dificultades con alguna posición, un consultor de lactancia puede ofrecerte ayuda personalizada.</p>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ url_for('posiciones_juego') }}" class="btn btn-lg btn-success">
+                <i class="bi bi-play-circle me-2"></i> Iniciar juego de posiciones
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+ 
+    /* Colores temáticos de lactancia */
+    .bg-baby-blue {
+        background-color: #5ba0d5;
+    }
+    
+    .bg-mother-pink {
+        background-color: #e091b9;
+    }
+    
+    .bg-nurture-green {
+        background-color: #78c2ad;
+    }
+    
+    .bg-calm-purple {
+        background-color: #a991d4;
+    }
+    
+    .bg-warm-orange {
+        background-color: #f3a052;
+    }
+    
+    .border-baby-blue {
+        border-color: #5ba0d5 !important;
+    }
+    
+    .border-mother-pink {
+        border-color: #e091b9 !important;
+    }
+    
+    .border-nurture-green {
+        border-color: #78c2ad !important;
+    }
+    
+    .border-calm-purple {
+        border-color: #a991d4 !important;
+    }
+    
+    .border-warm-orange {
+        border-color: #f3a052 !important;
+    }
+    
+    .btn-baby-blue {
+        background-color: #5ba0d5;
+        border-color: #5ba0d5;
+        color: white;
+    }
+    
+    .btn-mother-pink {
+        background-color: #e091b9;
+        border-color: #e091b9;
+        color: white;
+    }
+    
+    .btn-nurture-green {
+        background-color: #78c2ad;
+        border-color: #78c2ad;
+        color: white;
+    }
+    
+    .btn-calm-purple {
+        background-color: #a991d4;
+        border-color: #a991d4;
+        color: white;
+    }
+    
+    .btn-warm-orange {
+        background-color: #f3a052;
+        border-color: #f3a052;
+        color: white;
+    }
+    
+    .btn-baby-blue:hover, .btn-mother-pink:hover, .btn-nurture-green:hover, 
+    .btn-calm-purple:hover, .btn-warm-orange:hover {
+        filter: brightness(90%);
+        color: white;
+    }
+</style>
+{% endblock %}

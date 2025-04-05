@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow fade-in">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h4 mb-0">Bienvenido/a a LactaQuiz</h2>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <h3 class="h5 mt-3">Aprende sobre lactancia materna de forma divertida</h3>
+                </div>
+                
+                <div class="alert alert-info mb-4">
+                    <i class="bi bi-info-circle me-2"></i> LactaQuiz es una aplicación educativa diseñada para ayudarte a aprender sobre lactancia materna a través de juegos interactivos y recursos informativos.
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="card h-100 border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h3 class="h5 mb-0">¿Qué aprenderás?</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Técnicas correctas de lactancia</li>
+                                    <li>Beneficios para la madre y el bebé</li>
+                                    <li>Soluciones a problemas comunes</li>
+                                    <li>Desmitificación de creencias erróneas</li>
+                                    <li>Posiciones efectivas para amamantar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h3 class="h5 mb-0">¿Cómo jugar?</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Quiz con preguntas sobre lactancia</li>
+                                    <li>Juego de memoria con conceptos clave</li>
+                                    <li>Mitos y realidades sobre la lactancia</li>
+                                    <li>Guía interactiva de posiciones</li>
+                                    <li>Recursos educativos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-4">
+                    <a href="{{ url_for('acceder') }}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-arrow-right me-1"></i> Continuar
+                    </a>
+                </div>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category if category != 'error' else 'danger' }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

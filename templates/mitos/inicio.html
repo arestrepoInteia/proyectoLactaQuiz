@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}Mitos y Realidades - LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-mother-pink text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0"><i class="bi bi-exclamation-triangle me-2"></i> Mitos y Realidades</h2>
+        <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+            <i class="bi bi-house-door me-1"></i> Menú
+        </a>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-danger mb-4">
+            <i class="bi bi-info-circle me-2"></i> Existen muchos mitos sobre la lactancia materna que pueden confundir a las madres. Aquí desmitificamos algunos de los más comunes con información basada en evidencia científica.
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-10 offset-md-1">
+                <div class="card h-100 border-mother-pink">
+                    <div class="card-header bg-mother-pink text-white">
+                        <h3 class="h5 mb-0">Descubre los mitos</h3>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <p class="mb-4">
+                            <i class="bi bi-shuffle" style="font-size: 3rem; color: #dc3545;"></i>
+                        </p>
+                        <p class="flex-grow-1">¿Te animas a descubrir mitos sobre lactancia? Pon a prueba tus conocimientos y aprende algo nuevo con cada mito que descubras.</p>
+                        <a href="{{ url_for('mitos_aleatorio') }}" class="btn btn-lg btn-mother-pink">
+                            <i class="bi bi-lightning me-2"></i> ¡Muéstrame un mito!
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-info mb-3">
+            <div class="card-header bg-info text-white">
+                <h3 class="h5 mb-0"><i class="bi bi-lightbulb me-2"></i> Información importante</h3>
+            </div>
+            <div class="card-body">
+                <p>La lactancia materna es un proceso natural, pero también es una habilidad que se aprende. Identificar los mitos y conocer las realidades puede ayudar a las madres a tener una experiencia de lactancia más satisfactoria.</p>
+                <p class="mb-0">Si tienes dudas específicas, consulta siempre con un profesional de la salud especializado en lactancia materna.</p>
+            </div>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+            <div class="col">
+                <div class="card h-100 border-nurture-green">
+                    <div class="card-header bg-nurture-green text-white">
+                        <h3 class="h5 mb-0"><i class="bi bi-check-circle me-2"></i> Mitos populares</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex">
+                                <i class="bi bi-x-circle text-danger me-3 mt-1"></i>
+                                <div>"Si tengo los pechos pequeños, no produciré suficiente leche"</div>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <i class="bi bi-x-circle text-danger me-3 mt-1"></i>
+                                <div>"El calostro no es nutritivo"</div>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <i class="bi bi-x-circle text-danger me-3 mt-1"></i>
+                                <div>"Dar el pecho duele siempre"</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h5 mb-0"><i class="bi bi-book me-2"></i> Recursos educativos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-file-earmark-text fs-2 me-3 text-primary"></i>
+                            <div>
+                                <h4 class="h6 mb-1">Guía completa</h4>
+                                <p class="small mb-0">Visualiza nuestra guía completa sobre lactancia materna</p>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('recursos') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-arrow-right me-1"></i> Ver todos los recursos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('quiz_lactancia') }}" class="btn btn-lg btn-mother-pink">
+                <i class="bi bi-check2-square me-2"></i> Realizar quiz sobre mitos
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+ 
+    /* Colores temáticos de lactancia */
+    .bg-baby-blue {
+        background-color: #5ba0d5;
+    }
+    
+    .bg-mother-pink {
+        background-color: #e091b9;
+    }
+    
+    .bg-nurture-green {
+        background-color: #78c2ad;
+    }
+    
+    .bg-calm-purple {
+        background-color: #a991d4;
+    }
+    
+    .bg-warm-orange {
+        background-color: #f3a052;
+    }
+    
+    .border-baby-blue {
+        border-color: #5ba0d5 !important;
+    }
+    
+    .border-mother-pink {
+        border-color: #e091b9 !important;
+    }
+    
+    .border-nurture-green {
+        border-color: #78c2ad !important;
+    }
+    
+    .border-calm-purple {
+        border-color: #a991d4 !important;
+    }
+    
+    .border-warm-orange {
+        border-color: #f3a052 !important;
+    }
+    
+    .btn-baby-blue {
+        background-color: #5ba0d5;
+        border-color: #5ba0d5;
+        color: white;
+    }
+    
+    .btn-mother-pink {
+        background-color: #e091b9;
+        border-color: #e091b9;
+        color: white;
+    }
+    
+    .btn-nurture-green {
+        background-color: #78c2ad;
+        border-color: #78c2ad;
+        color: white;
+    }
+    
+    .btn-calm-purple {
+        background-color: #a991d4;
+        border-color: #a991d4;
+        color: white;
+    }
+    
+    .btn-warm-orange {
+        background-color: #f3a052;
+        border-color: #f3a052;
+        color: white;
+    }
+    
+    .btn-baby-blue:hover, .btn-mother-pink:hover, .btn-nurture-green:hover, 
+    .btn-calm-purple:hover, .btn-warm-orange:hover {
+        filter: brightness(90%);
+        color: white;
+    }
+</style>
+{% endblock %}

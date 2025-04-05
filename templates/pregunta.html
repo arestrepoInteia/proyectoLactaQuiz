@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Pregunta {{ num_pregunta }} - Quiz de Nutrición{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-light text-primary">Pregunta {{ num_pregunta }}/{{ total_preguntas }}</span>
+            <h2 class="h5 mb-0">Quiz de Nutrición</h2>
+            <span class="badge bg-warning text-dark">
+                <i class="bi bi-person-fill"></i> {{ session.nombre }}
+            </span>
+        </div>
+    </div>
+    
+    <div class="card-body p-3">
+        <div class="progress" style="height: 8px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                 role="progressbar" 
+                 style="width: {{ (num_pregunta - 1) / total_preguntas * 100 }}%"></div>
+        </div>
+        
+        <h3 class="card-title h6 my-3">{{ pregunta.pregunta }}</h3>
+        
+        <form action="{{ url_for('jugar') }}" method="post" id="preguntaForm">
+            <input type="hidden" name="pregunta_id" value="{{ pregunta.id }}">
+            
+            <div class="opciones row">
+                {% for opcion in pregunta.opciones %}
+                <div class="col-md-6 mb-2">
+                    <div class="form-check custom-option">
+                        <input class="form-check-input" type="radio" name="respuesta" id="opcion{{ loop.index0 }}" value="{{ loop.index0 }}" required>
+                        <label class="form-check-label d-block p-2 rounded border" for="opcion{{ loop.index0 }}">
+                            <span class="badge bg-light text-primary me-1">{{ "ABCD"[loop.index0] }}</span>
+                            {{ opcion }}
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-primary" id="responderBtn">
+                    Responder <i class="bi bi-check-circle ms-1"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="card-footer bg-light py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                <small class="text-muted">Selecciona la mejor opción</small>
+            </div>
+            <div>
+                <small class="text-muted">Puntaje: <span class="badge bg-success">{{ session.puntaje|default(0) }}</span></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .custom-option .form-check-input {
+        display: none;
+    }
+    
+    .custom-option .form-check-label {
+        cursor: pointer;
+        border: 2px solid #dee2e6;
+        background-color: #f8f9fa;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+    }
+    
+    .custom-option .form-check-input:checked + .form-check-label {
+        border-color: #0d6efd;
+        background-color: #e7f1ff;
+    }
+    
+    .custom-option .form-check-label:hover {
+        background-color: #e9ecef;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('preguntaForm');
+        const radioButtons = form.querySelectorAll('input[type="radio"]');
+        const submitButton = document.getElementById('responderBtn');
+        
+        // Deshabilitar el botón inicialmente hasta que se seleccione una opción
+        submitButton.disabled = true;
+        submitButton.classList.remove('btn-primary');
+        submitButton.classList.add('btn-secondary');
+        
+        // Habilitar el botón cuando se selecciona una opción
+        radioButtons.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                submitButton.disabled = false;
+                submitButton.classList.remove('btn-secondary');
+                submitButton.classList.add('btn-primary');
+            });
+        });
+        
+        // Evitar múltiples envíos
+        form.addEventListener('submit', function() {
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Procesando...';
+        });
+    });
+</script>
+{% endblock %}
+

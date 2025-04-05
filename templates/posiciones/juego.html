@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block title %}Juego de Ahorcado - Posiciones LactaQuiz{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-nurture-green text-white d-flex justify-content-between align-items-center">
+        <h2 class="h4 mb-0">Adivina la Posición</h2>
+        <div>
+            <a href="{{ url_for('posiciones_inicio') }}" class="btn btn-sm btn-light me-2">
+                <i class="bi bi-arrow-left me-1"></i> Volver
+            </a>
+            <a href="{{ url_for('menu') }}" class="btn btn-sm btn-light">
+                <i class="bi bi-house-door me-1"></i> Menú
+            </a>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="alert alert-success mb-4 d-flex align-items-center">
+            <i class="bi bi-lightbulb me-3 fs-4"></i>
+            <div>
+                <strong>¡Juega y aprende!</strong> Intenta adivinar la posición de lactancia basándote en la pista. Tienes 6 intentos antes de perder.
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-nurture-green text-white">
+                        <h3 class="h5 mb-0">Pista</h3>
+                    </div>
+                    <div class="card-body">
+                        <p id="pista" class="mb-0"></p>
+                    </div>
+                </div>
+                
+                <div class="card border-info">
+                    <div class="card-header bg-info text-white">
+                        <h3 class="h5 mb-0">Palabra a adivinar</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div id="palabra" class="display-6 mb-3 letter-spaces"></div>
+                        <p id="intentos" class="text-muted mb-0">Intentos restantes: <span id="intentosNum">6</span></p>
+                        <p id="letrasUsadas" class="text-muted">Letras usadas: <span id="letrasUsadasTexto"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header bg-light">
+                        <h3 class="h5 mb-0">Teclado</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="teclado" class="text-center">
+                            <div class="mb-2">
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="A">A</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="B">B</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="C">C</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="D">D</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="E">E</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="F">F</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="G">G</button>
+                            </div>
+                            <div class="mb-2">
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="H">H</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="I">I</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="J">J</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="K">K</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="L">L</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="M">M</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="N">N</button>
+                            </div>
+                            <div class="mb-2">
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="Ñ">Ñ</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="O">O</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="P">P</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="Q">Q</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="R">R</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="S">S</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="T">T</button>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="U">U</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="V">V</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="W">W</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="X">X</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="Y">Y</button>
+                                <button class="btn btn-outline-success m-1 tecla" data-letra="Z">Z</button>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button id="nuevaPalabra" class="btn btn-success">
+                                <i class="bi bi-arrow-repeat me-2"></i> Nueva palabra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de resultado -->
+<div class="modal fade" id="resultadoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="resultadoHeader">
+                <h5 class="modal-title" id="resultadoTitulo"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="resultadoMensaje"></p>
+                <div class="text-center mb-3">
+                    <img id="resultadoImagen" src="" alt="Posición de lactancia" class="img-fluid rounded" style="max-height: 200px;">
+                </div>
+                <div id="descripcionPosicion" class="alert alert-light"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" id="siguientePalabraBtn">
+                    Siguiente palabra <i class="bi bi-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .letter-spaces {
+        letter-spacing: 8px;
+        font-family: monospace;
+        font-weight: bold;
+    }
+    
+    .tecla {
+        width: 40px;
+        height: 40px;
+        font-weight: bold;
+    }
+    
+    .tecla:disabled {
+        opacity: 0.6;
+    }
+    
+    .tecla-correcta {
+        background-color: #d1e7dd;
+        border-color: #198754;
+        color: #198754;
+    }
+    
+    .tecla-incorrecta {
+        background-color: #f8d7da;
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+    /* Colores temáticos de lactancia */
+    .bg-baby-blue {
+        background-color: #5ba0d5;
+    }
+    
+    .bg-mother-pink {
+        background-color: #e091b9;
+    }
+    
+    .bg-nurture-green {
+        background-color: #78c2ad;
+    }
+    
+    .bg-calm-purple {
+        background-color: #a991d4;
+    }
+    
+    .bg-warm-orange {
+        background-color: #f3a052;
+    }
+    
+    .border-baby-blue {
+        border-color: #5ba0d5 !important;
+    }
+    
+    .border-mother-pink {
+        border-color: #e091b9 !important;
+    }
+    
+    .border-nurture-green {
+        border-color: #78c2ad !important;
+    }
+    
+    .border-calm-purple {
+        border-color: #a991d4 !important;
+    }
+    
+    .border-warm-orange {
+        border-color: #f3a052 !important;
+    }
+    
+    .btn-baby-blue {
+        background-color: #5ba0d5;
+        border-color: #5ba0d5;
+        color: white;
+    }
+    
+    .btn-mother-pink {
+        background-color: #e091b9;
+        border-color: #e091b9;
+        color: white;
+    }
+    
+    .btn-nurture-green {
+        background-color: #78c2ad;
+        border-color: #78c2ad;
+        color: white;
+    }
+    
+    .btn-calm-purple {
+        background-color: #a991d4;
+        border-color: #a991d4;
+        color: white;
+    }
+    
+    .btn-warm-orange {
+        background-color: #f3a052;
+        border-color: #f3a052;
+        color: white;
+    }
+    
+    .btn-baby-blue:hover, .btn-mother-pink:hover, .btn-nurture-green:hover, 
+    .btn-calm-purple:hover, .btn-warm-orange:hover {
+        filter: brightness(90%);
+        color: white;
+    }
+
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elementos del DOM
+        const palabraElement = document.getElementById('palabra');
+        const pistaElement = document.getElementById('pista');
+        const intentosNumElement = document.getElementById('intentosNum');
+        const letrasUsadasTextoElement = document.getElementById('letrasUsadasTexto');
+        const teclas = document.querySelectorAll('.tecla');
+        const nuevaPalabraBtn = document.getElementById('nuevaPalabra');
+        
+        // Modal
+        const resultadoModal = new bootstrap.Modal(document.getElementById('resultadoModal'));
+        const resultadoHeader = document.getElementById('resultadoHeader');
+        const resultadoTitulo = document.getElementById('resultadoTitulo');
+        const resultadoMensaje = document.getElementById('resultadoMensaje');
+        const resultadoImagen = document.getElementById('resultadoImagen');
+        const descripcionPosicion = document.getElementById('descripcionPosicion');
+        const siguientePalabraBtn = document.getElementById('siguientePalabraBtn');
+        
+        // Banco de posiciones
+        const posiciones = [
+            {
+                palabra: "CUNA",
+                pista: "Posición clásica donde el bebé está recostado frente a la madre, con su cabeza apoyada en el antebrazo.",
+                descripcion: "La posición de cuna es la más común y tradicional. El bebé está horizontal frente a la madre, con el cuerpo girado hacia ella y con la cabeza apoyada en su antebrazo. Ofrece buen control y contacto visual.",
+                imagen: "posicion1.jpg"
+            },
+            {
+                palabra: "CRUZADA",
+                pista: "Se sostiene al bebé con el brazo contrario al pecho que va a mamar.",
+                descripcion: "En la posición cruzada, la madre sostiene al bebé con el brazo contrario al pecho que va a mamar. Es ideal para bebés pequeños o con dificultades para agarrar el pecho correctamente.",
+                imagen: "posicion2.jpg"
+            },
+            {
+                palabra: "BALON",
+                pista: "El bebé se coloca debajo del brazo de la madre, con sus piernas hacia atrás (también conocida como posición de rugby).",
+                descripcion: "En la posición de balón o rugby, el bebé se coloca debajo del brazo de la madre, con su cuerpo hacia atrás y piernas extendidas. Especialmente útil tras una cesárea o para mamás con pechos grandes.",
+                imagen: "posicion3.jpg"
+            },
+            {
+                palabra: "ACOSTADA",
+                pista: "Madre y bebé están recostados de lado, frente a frente. Ideal para tomas nocturnas.",
+                descripcion: "En la posición acostada, la madre y el bebé están de lado, frente a frente. Es perfecta para tomas nocturnas o cuando la madre necesita descansar. También es útil después de una cesárea.",
+                imagen: "posicion4.jpg"
+            },
+            {
+                palabra: "BIOLOGICA",
+                pista: "La madre se recuesta hacia atrás y el bebé se coloca boca abajo sobre su pecho.",
+                descripcion: "En la posición biológica (también llamada posición laid-back), la madre se recuesta hacia atrás y el bebé se coloca boca abajo sobre ella. Aprovecha los reflejos naturales del bebé y es especialmente útil para bebés con dificultades de agarre.",
+                imagen: "posicion5.jpg"
+            }
+        ];
+        
+        // Variables del juego
+        let palabraActual = "";
+        let pistaActual = "";
+        let descripcionActual = "";
+        let imagenActual = "";
+        let palabraAdivinada = [];
+        let letrasUsadas = [];
+        let intentos = 6;
+        
+        // Inicializar juego
+        function iniciarJuego() {
+            // Elegir una posición aleatoria
+            const posicionAleatoria = posiciones[Math.floor(Math.random() * posiciones.length)];
+            palabraActual = posicionAleatoria.palabra;
+            pistaActual = posicionAleatoria.pista;
+            descripcionActual = posicionAleatoria.descripcion;
+            imagenActual = posicionAleatoria.imagen;
+            
+            // Reiniciar variables
+            palabraAdivinada = Array(palabraActual.length).fill('_');
+            letrasUsadas = [];
+            intentos = 6;
+            
+            // Actualizar interfaz
+            actualizarInterfaz();
+            
+            // Habilitar todas las teclas
+            teclas.forEach(tecla => {
+                tecla.disabled = false;
+                tecla.classList.remove('tecla-correcta', 'tecla-incorrecta');
+            });
+        }
+        
+        // Actualizar la interfaz del juego
+        function actualizarInterfaz() {
+            palabraElement.textContent = palabraAdivinada.join(' ');
+            pistaElement.textContent = pistaActual;
+            intentosNumElement.textContent = intentos;
+            letrasUsadasTextoElement.textContent = letrasUsadas.join(', ');
+        }
+        
+        // Manejar clic en tecla
+        teclas.forEach(tecla => {
+            tecla.addEventListener('click', function() {
+                const letra = this.dataset.letra;
+                
+                // Verificar si la letra ya fue usada
+                if (letrasUsadas.includes(letra)) {
+                    return;
+                }
+                
+                // Agregar a letras usadas
+                letrasUsadas.push(letra);
+                
+                // Deshabilitar tecla
+                this.disabled = true;
+                
+                // Verificar si la letra está en la palabra
+                if (palabraActual.includes(letra)) {
+                    // Actualizar palabra adivinada
+                    for (let i = 0; i < palabraActual.length; i++) {
+                        if (palabraActual[i] === letra) {
+                            palabraAdivinada[i] = letra;
+                        }
+                    }
+                    
+                    // Marcar tecla como correcta
+                    this.classList.add('tecla-correcta');
+                    
+                    // Verificar si ganó
+                    if (!palabraAdivinada.includes('_')) {
+                        mostrarResultado(true);
+                    }
+                } else {
+                    // Reducir intentos
+                    intentos--;
+                    
+                    // Marcar tecla como incorrecta
+                    this.classList.add('tecla-incorrecta');
+                    
+                    // Verificar si perdió
+                    if (intentos === 0) {
+                        // Revelar la palabra
+                        palabraAdivinada = palabraActual.split('');
+                        mostrarResultado(false);
+                    }
+                }
+                
+                // Actualizar interfaz
+                actualizarInterfaz();
+            });
+        });
+        
+        // Mostrar resultado (modal)
+        function mostrarResultado(esGanador) {
+            if (esGanador) {
+                resultadoHeader.className = 'modal-header bg-success text-white';
+                resultadoTitulo.innerHTML = '<i class="bi bi-trophy me-2"></i> ¡Felicidades!';
+                resultadoMensaje.textContent = `Has adivinado correctamente la posición "${palabraActual}".`;
+            } else {
+                resultadoHeader.className = 'modal-header bg-danger text-white';
+                resultadoTitulo.innerHTML = '<i class="bi bi-emoji-frown me-2"></i> ¡Juego terminado!';
+                resultadoMensaje.textContent = `La posición correcta era "${palabraActual}". ¡Inténtalo de nuevo!`;
+            }
+            
+            // Mostrar imagen y descripción
+            resultadoImagen.src = "{{ url_for('static', filename='img/posiciones/') }}" + imagenActual;
+            descripcionPosicion.textContent = descripcionActual;
+            
+            resultadoModal.show();
+        }
+        
+        // Manejar nueva palabra
+        nuevaPalabraBtn.addEventListener('click', iniciarJuego);
+        
+        // Manejar siguiente palabra desde modal
+        siguientePalabraBtn.addEventListener('click', function() {
+            resultadoModal.hide();
+            iniciarJuego();
+        });
+        
+        // Iniciar el juego
+        iniciarJuego();
+        
+        // Manejar eventos de teclado físico
+        document.addEventListener('keydown', function(event) {
+            const key = event.key.toUpperCase();
+            // Si es una letra
+            if (/^[A-ZÑ]$/.test(key)) {
+                // Buscar y simular clic en la tecla correspondiente
+                const tecla = document.querySelector(`.tecla[data-letra="${key}"]`);
+                if (tecla && !tecla.disabled) {
+                    tecla.click();
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+

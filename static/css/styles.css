@@ -1,0 +1,247 @@
+/* Estilos generales */
+:root {
+    --primary-color: #5b9bd5;
+    --primary-dark: #4a8bc6;
+    --secondary-color: #e091b9;
+    --secondary-dark: #d176a1;
+    --success-color: #78c2ad;
+    --danger-color: #f3969a;
+    --warning-color: #ffce67;
+    --info-color: #8cc3f0;
+}
+
+body {
+    background-color: #f5f8fa;
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.main-container {
+    max-width: 1400px;
+    margin: 15px auto;
+    flex-grow: 1;
+}
+
+/* Minimizar espacios para evitar scrolling excesivo */
+.card {
+    margin-bottom: 15px;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-header, .card-footer {
+    padding: 0.5rem 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+.py-3 {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+}
+
+/* Animaciones */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Tarjetas y contenedores */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+/* Botones */
+.btn {
+    border-radius: 6px;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-lg {
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-dark);
+    border-color: var(--secondary-dark);
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(91, 155, 213, 0.25);
+}
+
+/* Opciones de preguntas */
+.custom-option .form-check-label {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.custom-option .form-check-input:checked + .form-check-label {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(91, 155, 213, 0.2);
+}
+
+/* Colores de tema */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.bg-secondary {
+    background-color: var(--secondary-color) !important;
+}
+
+.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.border-info {
+    border-color: var(--info-color) !important;
+}
+
+/* Badges */
+.badge {
+    font-weight: 600;
+    padding: 0.35em 0.65em;
+    border-radius: 4px;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 6px;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Progreso */
+.progress {
+    border-radius: 10px;
+    background-color: #e9ecef;
+    height: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+/* Header y Footer */
+header h1 {
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+header .lead {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+footer {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Tablas */
+.table {
+    margin-bottom: 0;
+}
+
+.table td, .table th {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .main-container {
+        margin: 10px auto;
+    }
+    
+    .display-4 {
+        font-size: 2.25rem;
+    }
+}
